@@ -1,0 +1,29 @@
+{
+  "name": "Content-Scraper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "scraper.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/grantm44/Content-Scraper.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/grantm44/Content-Scraper/issues"
+  },
+  "homepage": "https://github.com/grantm44/Content-Scraper#readme",
+  "dependencies": {
+    "async": "^2.1.4",
+    "cheerio": "^0.22.0",
+    "fast-csv": "^2.3.0",
+    "fs": "0.0.1-security",
+    "mkdirp": "^0.5.1",
+    "request": "^2.79.0",
+    "x-ray": "^2.3.1"
+  }
+}

@@ -2,6 +2,7 @@ var request = require('request');
 var cheerio = require('cheerio');
 var Xray = require('x-ray');
 var csv = require('fast-csv');
+var mkdirp = require('mkdirp');
 var fs = require("fs");
 var d = new Date();
 var fullDate = d.getFullYear() + '-' + d.getMonth() + '-' + d.getDate();
@@ -33,9 +34,16 @@ x('http://shirts4mike.com', {
               allObjects.push(obj); //create array of all the data
               count++;
                 if(count >= len){ //reached end, write to csv
-                csv.writeToPath(fullDate, allObjects,
-                {
-                  headers: false
+                mkdirp('/data', function(err){
+                  if(err){
+                    console.log(err)
+                  }
+                  else{
+                    csv.writeToPath('/data/' + fullDate + '.csv', allObjects,
+                    {
+                      headers: false
+                    });
+                  }
                 });
               }
             }else{
