@@ -18,7 +18,6 @@
   },
   "homepage": "https://github.com/grantm44/Content-Scraper#readme",
   "dependencies": {
-    "async": "^2.1.4",
     "cheerio": "^0.22.0",
     "fast-csv": "^2.3.0",
     "fs": "0.0.1-security",

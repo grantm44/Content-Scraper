@@ -4,13 +4,24 @@ var Xray = require('x-ray');
 var csv = require('fast-csv');
 var mkdirp = require('mkdirp');
 var fs = require("fs");
-var d = new Date();
-var fullDate = d.getFullYear() + '-' + d.getMonth() + '-' + d.getDate();
+
 var x = Xray();
-var async = require('async');
-var time = d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
+
+
 var allObjects = [];
 var count = 0;
+
+var d = new Date();
+var time = d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
+function formatDate(){
+    var month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+    return [year, month, day].join('-');
+}
 
 x('http://shirts4mike.com', {
   shirts: x('.shirts a@href', ['.products li a@href']) //return object of all urls to be scraped .products li a@href'
@@ -19,7 +30,7 @@ x('http://shirts4mike.com', {
   if(!err){
       var len = obj.shirts.length;
       //loop over each url
-      async.forEach(Object.keys(obj.shirts), function(url, callback){
+      Object.keys(obj.shirts).forEach(function(url, callback){
         var add = obj.shirts[url];
         //make request for each address
         //and get title, price, imageURL, URL, time
@@ -39,7 +50,7 @@ x('http://shirts4mike.com', {
                     console.log(err)
                   }
                   else{
-                    csv.writeToPath('./data/' + fullDate + '.csv', allObjects,
+                    csv.writeToPath('./data/' + formatDate() + '.csv', allObjects,
                     {
                       headers: true
                     });
@@ -50,8 +61,7 @@ x('http://shirts4mike.com', {
               console.log(err);
             }
           })
-      },function(err){
-      });
+        });
     }else{
       console.log('There has been an error:' + err);
     }
