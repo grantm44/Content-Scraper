@@ -20,28 +20,28 @@ x('http://shirts4mike.com', {
       var len = obj.shirts.length;
       //loop over each url
       async.forEach(Object.keys(obj.shirts), function(url, callback){
-        var address = obj.shirts[url];
+        var add = obj.shirts[url];
         //make request for each address
         //and get title, price, imageURL, URL, time
-        x(address, {
-          title:'.shirt-picture img@alt',
-          price: '.price@html',
-          img: '.shirt-picture img@src'
+        x(add, {
+          Title:'.shirt-picture img@alt',
+          Price: '.price@html',
+          ImageURL: '.shirt-picture img@src'
         })(function(err, obj){
             if(!err){
-              obj['address'] = address;
-              obj['time'] = time;
+              obj['URL'] = add;
+              obj['Time'] = time;
               allObjects.push(obj); //create array of all the data
               count++;
                 if(count >= len){ //reached end, write to csv
-                mkdirp('/data', function(err){
+                mkdirp('./data', function(err){
                   if(err){
                     console.log(err)
                   }
                   else{
-                    csv.writeToPath('/data/' + fullDate + '.csv', allObjects,
+                    csv.writeToPath('./data/' + fullDate + '.csv', allObjects,
                     {
-                      headers: false
+                      headers: true
                     });
                   }
                 });
